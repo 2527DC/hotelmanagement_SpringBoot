@@ -1,14 +1,10 @@
 	package com.HotelManagement.HotelManagement.Entity;
 	
 	import java.util.*;
-	import java.util.stream.Collectors;
+
 	
 	import jakarta.persistence.*;
-	import org.springframework.security.core.GrantedAuthority;
-	import org.springframework.security.core.authority.SimpleGrantedAuthority;
-	import org.springframework.security.core.userdetails.UserDetails;
-	
-	import com.fasterxml.jackson.core.sym.Name;
+
 	
 	@Entity
 	@Table(name = "users")
