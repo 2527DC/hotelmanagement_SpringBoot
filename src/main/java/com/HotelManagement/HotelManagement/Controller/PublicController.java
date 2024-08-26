@@ -1,7 +1,10 @@
 package com.HotelManagement.HotelManagement.Controller;
 
 import com.HotelManagement.HotelManagement.Repository.Repository;
+import com.HotelManagement.HotelManagement.Service.AdminControleService;
+import com.HotelManagement.HotelManagement.Service.UsercontroleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,8 +17,9 @@ import com.HotelManagement.HotelManagement.Service.LoginRegisterService;
 
 @RestController
 @RequestMapping("/api")
-public class LoginRegisterController {
+public class PublicController {
 
+    private final AdminControleService Service;
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -24,6 +28,14 @@ public class LoginRegisterController {
 
     @Autowired
     private LoginRegisterService service;
+    @Autowired
+    private UsercontroleService Userservice;
+
+
+    @Autowired
+    public PublicController(AdminControleService service) {
+        Service = service;
+    }
 
     @PostMapping("/registerUser")
     public ResponseEntity<String> resisterUser( @RequestBody User user) {
@@ -75,5 +87,16 @@ public class LoginRegisterController {
         }
     }
 
+    @GetMapping("/getImage/{roomNo}")
+    public ResponseEntity<Resource> getImage(@PathVariable("roomNo") int roomNo ){
+
+        return  Service.getImage(roomNo);
+    }
+
+    @GetMapping("/checkRoom")
+    public ResponseEntity<String > checkRoom(@RequestParam String date,@RequestParam int roomNo){
+        return Userservice.checkRoom(roomNo,date)?ResponseEntity.ok("booking is avilable")
+                :ResponseEntity.ok("booking is not avilable");
+    }
 
 }

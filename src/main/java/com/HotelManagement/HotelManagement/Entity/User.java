@@ -25,7 +25,7 @@
 	
 		@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 		@JoinColumn(name = "role_id")
-		private Set<Role> role = new HashSet<>();
+		private Set<Role> role ;
 
 		@Transient
 		private List<Rooms> rooms;
